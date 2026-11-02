@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vipr demos</title>
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+      body { margin: 0; background: #0a0a0c; color: #d8d8d8; display: flex; min-height: 100vh; }
+      nav { width: 14rem; flex: none; padding: 1.5rem; border-right: 1px solid #2a2a30; }
+      nav h1 { margin: 0 0 0.25rem; font-size: 1.25rem; color: #efefef; }
+      nav p { margin: 0 0 1.25rem; font-size: 0.85rem; color: #aeaeae; }
+      nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+      nav a { color: #d8d8d8; text-decoration: none; }
+      nav a:hover, nav a[aria-current] { color: #00baff; }
+      main { flex: 1; padding: 1.5rem 2rem; min-width: 0; }
+      h2 { margin: 0 0 0.5rem; color: #efefef; }
+      main p { margin: 0 0 0.75rem; max-width: 40rem; color: #aeaeae; }
+      main p.controls { color: #efefef; }
+      canvas { display: block; max-width: 100%; background: #000; border: 1px solid #2a2a30; border-radius: 8px; margin-top: 1rem; }
+      .selection { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+      .children { display: grid; grid-template-columns: repeat(7, 100px); gap: 0.5rem; }
+      .children canvas { width: 100px; height: 100px; cursor: pointer; margin: 0; }
+      .children canvas:hover { border-color: #00baff; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h1>vipr demos</h1>
+      <p>Project Gaia's programs, drawn with vipr.</p>
+      <ul id="demos"></ul>
+    </nav>
+    <main id="stage"></main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

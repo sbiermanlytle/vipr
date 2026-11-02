@@ -4,6 +4,10 @@
   "description": "WebGL API",
   "author": "Sebastian Bierman-Lytle",
   "main": "src/index.ts",
+  "scripts": {
+    "demos": "vite demos",
+    "demos:build": "vite build demos"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sbiermanlytle/vipr.git"
@@ -16,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/sbiermanlytle/vipr/issues"
   },
-  "homepage": "https://github.com/sbiermanlytle/vipr#readme"
+  "homepage": "https://github.com/sbiermanlytle/vipr#readme",
+  "devDependencies": {
+    "vite": "^6.4.5"
+  }
 }
