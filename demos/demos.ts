@@ -18,7 +18,7 @@ const STEP = 'Press → to grow it a step and ← to go back.'
 
 export const DEMOS: Demo[] = [
   { slug: 'biomorph-selection', name: 'Biomorph Selection', file: 'BiomorphSelection', frame: 'selection', summary: 'Breed biomorphs by hand: click one of the 14 children, each with one gene mutated, to make it the parent of the next generation.' },
-  { slug: 'biomorph-selection-v2', name: 'Biomorph Selection V2', file: 'BiomorphSelectionV2', frame: 'selection', summary: 'A second take on Biomorph Selection, whose genes also change the length of the branches at different depths.' },
+  { slug: 'biomorph-selection-v2', name: 'Biomorph Selection V2', file: 'BiomorphSelectionV2', frame: 'selection', summary: 'Biomorph Selection with a gene that sets how thick the branches are, in place of three that set their lengths deep in the tree.' },
   { slug: 'biomorph', name: 'Biomorph', file: 'Biomorphs', frame: 'square', summary: 'One biomorph, drawn from nine random genes that set its angles, lengths and depth.' },
   { slug: 'origins', name: 'Origins', file: 'Origins', frame: 'landscape', summary: 'A single seed that grows cell by cell, spending the energy it stores.', controls: STEP },
   { slug: 'origins-v2', name: 'Origins V2', file: 'OriginsV2', frame: 'landscape', summary: 'Seeds on the ground that grow into plants together.', controls: STEP },

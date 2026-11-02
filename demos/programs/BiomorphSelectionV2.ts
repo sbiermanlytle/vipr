@@ -184,7 +184,8 @@ export default function BiomorphSelectionV2(app, settings) {
     Log.info('DEVELOPMENT', `DNA: ${dnaString(dna)}`)
 
     const height = startingHeight;
-    const width = 1 + dna[6];
+    // Branches are never thinner than 1px: at 0 or below, the biomorph would draw nothing.
+    const width = Math.max(1, 1 + dna[6]);
     const taper = 1;
     const shrink = 0.7 + dna[2] / 27;
     const angle = 45 + dna[1] * 45 / 9;
