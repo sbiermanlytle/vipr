@@ -22,6 +22,7 @@ export const DEMOS: Demo[] = [
   { slug: 'biomorph', name: 'Biomorph', file: 'Biomorphs', frame: 'square', summary: 'One biomorph, drawn from nine random genes that set its angles, lengths and depth.' },
   { slug: 'origins', name: 'Origins', file: 'Origins', frame: 'landscape', summary: 'A single seed that grows cell by cell, spending the energy it stores.', controls: STEP },
   { slug: 'origins-v2', name: 'Origins V2', file: 'OriginsV2', frame: 'landscape', summary: 'Seeds on the ground that grow into plants together.', controls: STEP },
+  { slug: 'origins-v3', name: 'Origins V3', file: 'OriginsV3', frame: 'landscape', summary: 'A meadow of grass, shrubs and trees, grown from a few seeds, that evolve and compete for light.', controls: 'It runs on its own. Press Space to pause it and → to step it while paused.' },
   { slug: 'grassland', name: 'Grassland', file: 'Grassland', frame: 'landscape', summary: 'A field of grass growing up from seeds scattered on the ground.', controls: STEP },
   { slug: 'growing-tree', name: 'Growing Tree', file: 'GrowingTree', frame: 'landscape', summary: 'A tree growing from its trunk out to the tips of its branches.', controls: STEP },
   { slug: 'trees', name: 'Trees', file: 'Trees', frame: 'landscape', summary: 'A row of trees, each grown from its own random genes, in its own color.' },
