@@ -56,9 +56,9 @@ Anything that moves redraws itself, on a timer or `requestAnimationFrame`.
 
 ## Demos
 
-`demos/` holds Project Gaia's 13 programs, which are what vipr 2.0 was written for:
-biomorphs bred by cumulative selection, seeds, grass and trees that grow, Conway's Game of Life
-and the grids they started from. To run them:
+`demos/` holds Project Gaia's programs, which are what vipr 2.0 was written for: biomorphs bred
+by cumulative selection, seeds, grass and trees that grow, a meadow of plants that evolve and
+compete for light, Conway's Game of Life and the grids they started from. To run them:
 
 ```bash
 npm install
@@ -66,11 +66,12 @@ npm run demos
 ```
 
 Then open the address Vite prints. Pick a demo from the list; Origins, Origins V2, Grassland and
-Growing Tree step with the arrow keys, and the Biomorph Selection demos breed from the child you
-click. `npm run demos:build` builds a static copy into `demos/dist/`.
+Growing Tree step with the arrow keys, Origins V3 runs on its own (Space pauses it), and the
+Biomorph Selection demos breed from the child you click. `npm run demos:build` builds a static copy into `demos/dist/`.
 
 What's in `demos/`: the programs (`programs/`) and the simulations some of them grow
-(`sims/`), copied from okapi's `projects/gaia` with their imports pointed at `src/`; `core.ts`,
+(`sims/`), copied from okapi's `projects/gaia` with their imports pointed at `src/` (Origins V3
+and its meadow, `sims/meadow/`, come from Project Gaia's site, gaia.iioengine.com); `core.ts`,
 the two helpers they use from okapi's core library (`Log` and `hexToRgb`); and `index.html`,
 `main.ts` and `demos.ts`, a page that lists them and runs the one you pick on the canvas it was
 written for. The programs never stop their timers, so switching demos reloads the page. Vite is a
