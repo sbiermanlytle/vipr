@@ -19,7 +19,7 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
   const CELL_SIZE = settings.cellSize || 4;
   const ROWS = Math.ceil(app.ctx.canvas.width / CELL_SIZE);
   const COLS = Math.ceil(app.ctx.canvas.height / CELL_SIZE);
-  const INITIAL_FILL = settings.initialFill || .6;
+  const INITIAL_FILL = settings.initialFill || .35;
   const ENABLE_LOGS = settings.disableLogs ? false : true;
   let COLOR = [];
   if (settings.color) {
@@ -89,33 +89,18 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
     for (c = 0; c < this.cells.length; c++) {
 
       for (r = 0; r < this.cells[c].length; r++) {
-        numNeighbors = 0;
-
-        if (c > 0) {
-          if (this.cells[c - 1][r]) { numNeighbors++; }
-          if (r > 0 && this.cells[c - 1][r - 1]) { numNeighbors++; }
-        }
-        if (r > 0 && this.cells[c][r - 1]) { numNeighbors++; }
-        if (c < this.cells.length - 1 && this.cells[c + 1][r]) { numNeighbors++; }
-
-        if (numNeighbors < 4) {
-          if (c < this.cells.length - 1 && r > 0 && this.cells[c + 1][r - 1]) {
-            numNeighbors++;
-          }
-          if (numNeighbors < 4) {
-            if (c > 0 && r < this.cells[c].length - 1 && this.cells[c - 1][r + 1]) {
-              numNeighbors++;
-            }
-            if (numNeighbors < 4) {
-              if (r < this.cells[c].length - 1 && this.cells[c][r + 1]) {
-                numNeighbors++;
-              }
-              if (numNeighbors < 4 && c < this.cells.length - 1 && r < this.cells[c].length - 1 && this.cells[c + 1][r + 1]) {
-                numNeighbors++;
-              }
-            }
-          }
-        }
+        // The grid wraps around: past its right edge is its left, past its bottom its top, so no
+        // cell is on an edge and every one has eight neighbors, as on the game's endless plane.
+        const height = this.cells.length;
+        const width = this.cells[c].length;
+        const up = (c + height - 1) % height;
+        const down = (c + 1) % height;
+        const left = (r + width - 1) % width;
+        const right = (r + 1) % width;
+        numNeighbors =
+          this.cells[up][left] + this.cells[up][r] + this.cells[up][right] +
+          this.cells[c][left] + this.cells[c][right] +
+          this.cells[down][left] + this.cells[down][r] + this.cells[down][right];
 
         if (this.cells[c][r]) {
           this.nextCells[c][r] = (numNeighbors === 2 || numNeighbors === 3);
@@ -145,7 +130,8 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
     if (ENABLE_LOGS) {
       Log.info(this, `generation ${this.generation} | render time: ${renderTime}ms`);
     }
-    this.cells = this.nextCells;
+    // Swap the grids, so the next generation reads this one and writes over the one before it.
+    [this.cells, this.nextCells] = [this.nextCells, this.cells];
     this.generation++;
   }
 
