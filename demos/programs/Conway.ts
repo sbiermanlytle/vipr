@@ -19,7 +19,7 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
   const CELL_SIZE = settings.cellSize || 4;
   const ROWS = Math.ceil(app.ctx.canvas.width / CELL_SIZE);
   const COLS = Math.ceil(app.ctx.canvas.height / CELL_SIZE);
-  const INITIAL_FILL = settings.initialFill || .6;
+  const INITIAL_FILL = settings.initialFill || .35;
   const ENABLE_LOGS = settings.disableLogs ? false : true;
   let COLOR = [];
   if (settings.color) {
@@ -145,7 +145,8 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
     if (ENABLE_LOGS) {
       Log.info(this, `generation ${this.generation} | render time: ${renderTime}ms`);
     }
-    this.cells = this.nextCells;
+    // Swap the grids, so the next generation reads this one and writes over the one before it.
+    [this.cells, this.nextCells] = [this.nextCells, this.cells];
     this.generation++;
   }
 
