@@ -141,6 +141,7 @@ export default function GrowingTree(app, settings) {
   renderTree(t);
 
   this.mainLoop = () => {
+    if (app.stopped) return;
     renderTree(t)
 
     if (t >= tree.maxAge) {

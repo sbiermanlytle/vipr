@@ -12,7 +12,7 @@ JavaScript library with its Rollup build and step-by-step examples, is tagged
 
 | File | What it does |
 |---|---|
-| `src/App.ts` | `App` takes a canvas, gets its WebGL context (falling back to 2D if WebGL isn't available), and starts a program with `new program(app, settings)`. Helpers: `setColor`, `setRandomColor`, `drawBackgroundColor` and `clear`. |
+| `src/App.ts` | `App` takes a canvas, gets its WebGL context (falling back to 2D if WebGL isn't available), and starts a program with `new program(app, settings)`. `stop()` ends it: it sets `app.stopped` and gives back every WebGL context the program drew with, the canvas's and any made with `contextFor(canvas)`. Helpers: `setColor`, `setRandomColor`, `drawBackgroundColor` and `clear`. |
 | `src/core.ts` | `start(program, canvasId)` finds the canvas and makes an `App` on it. `shaderFactory` compiles a vertex and a fragment shader and links them; `createBuffer`, `createShader` and `createShaderProgram` are the steps it's built from. `setupLocations` turns on the position attribute and finds the standard uniforms (resolution, translation, scale, rotation, color). Also `randomInt` and `sinAndCosForAngle`. |
 | `src/shaders.ts` | GLSL source as strings: `simpleVertexShader` / `simpleFragmentShader` draw in pixel coordinates in one color, and `genericVertexShader` / `genericFragmentShader` add translation, rotation and scale. `vsSource` / `fsSource` are the minimal pair. |
 | `src/geometry.ts` | `getRectangleCoordinates` gives the corners of a rotated, optionally tapered rectangle (two triangles), and `computeNewOrigin` where one ends, so the next can start there: how branches and plant cells are drawn. `setRectangle` fills the bound buffer with an axis-aligned rectangle. |
@@ -52,7 +52,12 @@ function Squares(app) {
 vipr.start([Squares, { webgl: true }], 'canvas')
 ```
 
-Anything that moves redraws itself, on a timer or `requestAnimationFrame`.
+Anything that moves redraws itself, on a timer or `requestAnimationFrame`. A program that does
+should check `app.stopped` before each step, so `app.stop()` ends it: call it when its canvas
+leaves the page, and the program stops computing and its WebGL contexts, with every buffer and
+shader in them, go back to the browser at once rather than whenever they're garbage collected.
+A program that draws on more canvases than its own makes their contexts with
+`app.contextFor(canvas)`, so `stop()` gives those back too.
 
 ## Demos
 
@@ -74,7 +79,8 @@ What's in `demos/`: the programs (`programs/`) and the simulations some of them 
 and its meadow, `sims/meadow/`, come from Project Gaia's site, gaia.iioengine.com); `core.ts`,
 the two helpers they use from okapi's core library (`Log` and `hexToRgb`); and `index.html`,
 `main.ts` and `demos.ts`, a page that lists them and runs the one you pick on the canvas it was
-written for. The programs never stop their timers, so switching demos reloads the page. Vite is a
+written for. Switching demos stops the one that's running (`App.stop`), whose loops all check
+`app.stopped`, before the next one starts. Vite is a
 dev dependency for the demos only; vipr itself still has none.
 
 ## Vocab

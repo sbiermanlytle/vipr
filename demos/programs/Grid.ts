@@ -97,6 +97,7 @@ export default function Grid(app, settings) {
   }
 
   this.loopRedraw = () => {
+    if (app.stopped) return;
     this.redraw();
     setTimeout(() => {
       this.loopRedraw();
