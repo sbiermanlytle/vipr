@@ -106,6 +106,7 @@ export default function Conway(app, settings) {
   }
 
   this.loopRedraw = () => {
+    if (app.stopped) return;
     this.redraw();
     setTimeout(() => {
       this.loopRedraw();

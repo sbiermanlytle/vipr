@@ -152,6 +152,7 @@ export default function Conway(app: App, settings: ConwayProps = {}) {
   }
 
   this.loop = () => {
+    if (app.stopped) return;
     this.nextGeneration();
 
     setTimeout(() => {

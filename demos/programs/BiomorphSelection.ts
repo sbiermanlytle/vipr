@@ -52,7 +52,7 @@ export default function BiomorphSelection(app, settings) {
       return;
     }
 
-    context = canvas.getContext('webgl');
+    context = app.contextFor(canvas);
     canvas.tag = i;
     canvas.onclick = (e) => {
       e.preventDefault();

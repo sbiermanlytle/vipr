@@ -82,7 +82,7 @@ export default function OriginsV3(app, settings: { preview?: boolean } = {}) {
 
   let paused = false;
   const tick = () => {
-    if (gl.isContextLost()) return;
+    if (app.stopped || gl.isContextLost()) return;
     if (!paused) {
       meadow.step();
       draw();

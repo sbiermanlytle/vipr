@@ -7,7 +7,17 @@ const programs = import.meta.glob('./programs/*.ts', { import: 'default' })
 const list = document.getElementById('demos')!
 const stage = document.getElementById('stage')!
 
+// The demo that's running, which is stopped (App.stop) before the next one starts: its loops end
+// and its WebGL contexts go back to the browser.
+let running: App | undefined
+
 function show(demo: Demo) {
+  running?.stop()
+  running = undefined
+  // The keys go to the new demo: a program that takes them sets these as it starts.
+  document.body.onkeydown = null
+  document.body.onkeyup = null
+
   document.title = `${demo.name} · vipr demos`
   for (const link of list.querySelectorAll('a')) link.toggleAttribute('aria-current', link.hash === `#${demo.slug}`)
 
@@ -47,7 +57,11 @@ function show(demo: Demo) {
   }
 
   const load = programs[`./programs/${demo.file}.ts`]
-  load().then((program) => new App(canvas, program, { webgl: true }))
+  load().then((program) => {
+    // Another demo may have been opened while this one loaded.
+    if (!canvas.isConnected) return
+    running = new App(canvas, program, { webgl: true })
+  })
 }
 
 for (const demo of DEMOS) {
@@ -59,8 +73,7 @@ for (const demo of DEMOS) {
   list.append(item)
 }
 
-// Gaia's programs never stop their timers, so switching demos loads the page again.
-window.addEventListener('hashchange', () => window.location.reload())
+window.addEventListener('hashchange', () => show(DEMOS.find((d) => `#${d.slug}` === window.location.hash) ?? DEMOS[0]))
 
 const demo = DEMOS.find((d) => `#${d.slug}` === window.location.hash) ?? DEMOS[0]
 show(demo)

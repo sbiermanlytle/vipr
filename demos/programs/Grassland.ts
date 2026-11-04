@@ -136,6 +136,7 @@ export default function Grassland(app, settings) {
     // }
     if (e.keyCode == 39) {
       loopId = window.setTimeout(() => {
+        if (app.stopped) return;
         t = nextStep(t, scale);
       }, 100);
     }
