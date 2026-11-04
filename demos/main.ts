@@ -60,7 +60,9 @@ function show(demo: Demo) {
   load().then((program) => {
     // Another demo may have been opened while this one loaded.
     if (!canvas.isConnected) return
-    running = new App(canvas, program, { webgl: true })
+    // Logs are off: Conway and Pattern Loop log a line every step, which a console with DevTools
+    // open keeps for as long as the demo runs.
+    running = new App(canvas, program, { webgl: true, disableLogs: true })
   })
 }
 
