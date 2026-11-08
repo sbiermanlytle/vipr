@@ -76,7 +76,7 @@ Biomorph Selection demos breed from the child you click. `npm run demos:build` b
 
 What's in `demos/`: the programs (`programs/`) and the simulations some of them grow
 (`sims/`), copied from okapi's `projects/gaia` with their imports pointed at `src/` (Origins V3
-and its meadow, `sims/meadow/`, come from Project Gaia's site, gaia.iioengine.com); `core.ts`,
+and its meadow, `sims/meadow/`, come from Project Gaia's site, gaia.iiostudio.com); `core.ts`,
 the two helpers they use from okapi's core library (`Log` and `hexToRgb`); and `index.html`,
 `main.ts` and `demos.ts`, a page that lists them and runs the one you pick on the canvas it was
 written for. Switching demos stops the one that's running (`App.stop`), whose loops all check
